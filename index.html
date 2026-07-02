@@ -10,7 +10,7 @@
             height: 100%;
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #263fa4; /* Fondo azul original */
+            background-color: #263fa4;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -18,7 +18,6 @@
             padding: 21px 12px 12px 12px; 
             box-sizing: border-box;
         }
-
         .login-box {
             background-color: #ffffff;
             border-radius: 12px;
@@ -29,14 +28,12 @@
             text-align: center;
             box-sizing: border-box;
         }
-
         .main-logo {
             width: 100px; 
             height: auto;
             margin-top: 0px; 
             margin-bottom: 15px; 
         }
-
         .company-name {
             font-size: 13pt; 
             color: #263fa4;
@@ -44,23 +41,17 @@
             margin-bottom: 20px; 
             line-height: 1.4;
         }
-
-        .no-wrap {
-            white-space: nowrap;
-        }
-
+        .no-wrap { white-space: nowrap; }
         .welcome-text {
             font-size: 16px; 
             color: #333333;
             margin-bottom: 25px; 
         }
-
         .input-group {
             position: relative;
             margin-bottom: 20px; 
             text-align: left;
         }
-
         .input-group label {
             display: block;
             font-size: 13px; 
@@ -68,11 +59,7 @@
             margin-bottom: 8px; 
             font-weight: 600;
         }
-
-        .input-wrapper {
-            position: relative;
-        }
-
+        .input-wrapper { position: relative; }
         .input-group input {
             width: 100%;
             padding: 18px 16px 18px 45px; 
@@ -82,7 +69,6 @@
             font-size: 15px; 
             background-color: #f9f9f9;
         }
-
         .input-group .field-icon {
             position: absolute;
             left: 14px; 
@@ -91,7 +77,6 @@
             color: #888;
             font-size: 16px; 
         }
-
         .input-group .toggle-password {
             position: absolute;
             right: 14px; 
@@ -101,7 +86,6 @@
             cursor: pointer;
             font-size: 16px; 
         }
-
         .login-button {
             background-color: #263fa4;
             color: #ffffff;
@@ -116,30 +100,23 @@
             margin-bottom: 5px; 
             transition: background-color 0.3s;
         }
-        
-        .login-button:hover {
-            background-color: #1a2a6e;
-        }
-        
+        .login-button:hover { background-color: #1a2a6e; }
         .login-button:disabled {
             background-color: #6c7ebf;
             cursor: not-allowed;
         }
-
         #mensaje {
             margin-bottom: 5px;
             font-size: 13px; 
             font-weight: bold;
             min-height: 18px; 
         }
-
         .bottom-logo {
             width: 212px; 
             height: auto;
             margin-top: 0;
             margin-bottom: 0;
         }
-
         .copyright {
             font-size: 10px; 
             color: #ffffff;
@@ -196,7 +173,6 @@
         togglePasswordIcon.addEventListener('click', function () {
             const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordField.setAttribute('type', type);
-            
             this.classList.toggle('fa-eye');
             this.classList.toggle('fa-eye-slash');
         });
@@ -217,15 +193,13 @@
             btnLogin.disabled = true;
             mensajeDiv.innerText = "";
             
-            // URL DE TU SCRIPT DE GOOGLE ACTUALIZADA
             var scriptURL = "https://script.google.com/macros/s/AKfycbxIL96fF0OJdoDtPA6XIzNAdq8PKj8DVP4gmBhweljhyD1aeLJeDVqlnKsVmkU9x2Pp/exec";
 
-            // Se envía la petición como POST con cuerpo JSON y encabezado 'text/plain' para evitar bloqueo CORS
             fetch(scriptURL, {
                 method: 'POST',
                 body: JSON.stringify({ 
-                    username: user,      // Ajustado a lo que lee el Apps Script
-                    password: pass       // Ajustado a lo que lee el Apps Script
+                    username: user,      
+                    password: pass       
                 }),
                 headers: {
                     'Content-Type': 'text/plain;charset=utf-8'
@@ -236,23 +210,21 @@
                 btnLogin.innerText = "Iniciar sesión";
                 btnLogin.disabled = false;
                 
-                // Ajustado a 'respuesta.valido' que es lo que devuelve el Apps Script
                 if(respuesta.valido) {
                     mensajeDiv.style.color = "#188038";
                     mensajeDiv.innerText = "¡Bienvenido! Redirigiendo...";
                     
-                    // Guardamos el ID, el PRIVILEGIO y el NOMBRE COMPLETO en el localStorage
                     localStorage.setItem('usuario', user); 
                     localStorage.setItem('privilegio', respuesta.privilegio);
-                    localStorage.setItem('nombre', respuesta.nombreUsuario); // Ajustado a 'nombreUsuario'
+                    localStorage.setItem('nombre', respuesta.nombreUsuario); 
                     
                     setTimeout(() => {
-                        window.location.href = "inicio.html";
+                        // REDIRECCIÓN A YOUTUBE SOLICITADA
+                        window.location.href = "https://www.youtube.com";
                     }, 1000);
                 } else {
                     mensajeDiv.style.color = "#d93025";
-                    // Ajustado a 'respuesta.error' que es lo que devuelve el Apps Script
-                    mensajeDiv.innerText = respuesta.error || "Error desconocido al iniciar sesión.";
+                    mensajeDiv.innerText = respuesta.error || "Error al iniciar sesión.";
                 }
             })
             .catch(error => {
